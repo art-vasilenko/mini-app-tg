@@ -16,8 +16,8 @@ async function headCheck(downloadUrl) {
       `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${downloadUrl}`,
     );
     console.log(headResp);
-    const len = headResp.size;
-    const type = headResp.mime_type;
+    const len = headResp.data.size;
+    const type = headResp.data.mime_type;
 
     const supported = ["video/mp4", "video/webm", "video/quicktime"];
 
@@ -31,7 +31,7 @@ async function headCheck(downloadUrl) {
       return { ok: false };
     }
 
-    return { ok: true, length: len, type, file: headResp.file };
+    return { ok: true, length: len, type, file: headResp.data.file };
   } catch (err) {
     alert("Ошибка HEAD-проверки");
     return { ok: false };
