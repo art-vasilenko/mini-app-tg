@@ -6,31 +6,18 @@ function isValidYandexUrl(url) {
   );
 }
 
-// ===== ПОЛУЧЕНИЕ ПРЯМОЙ ССЫЛКИ =====
-async function getYandexDownloadUrlVideo(publicUrl) {
-  const apiUrl =
-    "https://cloud-api.yandex.net/v1/disk/public/resources/download";
-  try {
-    const response = await axios.get(apiUrl, {
-      params: { public_key: publicUrl },
-    });
-    return response.data.href || null;
-  } catch (err) {
-    alert("Не удалось получить ссылку на скачивание");
-    return null;
-  }
-}
-
 // ===== HEAD-ПРОВЕРКА =====
 async function headCheck(downloadUrl) {
   try {
     const maxSizeGb = 2; // максимум
     const maxSize = maxSizeGb * 1024 * 1024 * 1024;
 
-    const headResp = await axios.head(downloadUrl);
+    const headResp = await axios.get(
+      `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${downloadUrl}`,
+    );
     console.log(headResp);
-    const len = parseInt(headResp.headers["content-length"] || "0", 10);
-    const type = (headResp.headers["content-type"] || "").split(";")[0];
+    const len = headResp.size;
+    const type = headResp.mime_type;
 
     const supported = ["video/mp4", "video/webm", "video/quicktime"];
 
@@ -44,7 +31,7 @@ async function headCheck(downloadUrl) {
       return { ok: false };
     }
 
-    return { ok: true, length: len, type };
+    return { ok: true, length: len, type, file: headResp.file };
   } catch (err) {
     alert("Ошибка HEAD-проверки");
     return { ok: false };

@@ -43,12 +43,9 @@ document.getElementById("sendButton").addEventListener("click", async () => {
   }
 
   try {
-    const downloadUrl = await getYandexDownloadUrlVideo(link);
-    console.log(downloadUrl);
-    if (!downloadUrl) return;
-
-    const head = await headCheck(downloadUrl);
+    const head = await headCheck(link);
     if (!head.ok) return;
+    console.log(head.file);
 
     alert("Видео готово к загрузке! Всё в порядке.");
   } catch (err) {
