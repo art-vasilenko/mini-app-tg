@@ -9,7 +9,7 @@ if (user) {
   console.log("First name:", user.first_name);
 }
 
-Telegram.WebApp.showAlert(JSON.stringify(user));
+tg.showAlert(JSON.stringify(user));
 
 const analyzeButton = document.getElementById("analyzeButton");
 const form = document.getElementById("analysisForm");
