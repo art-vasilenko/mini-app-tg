@@ -4,22 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini App</title>
-    <!-- Подключение Telegram Web App API -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { font-family: sans-serif; background-color: var(--tg-theme-bg-color); color: var(--tg-theme-text-color); text-align: center; }
-        button { padding: 10px 20px; font-size: 16px; }
+        body {
+            font-family: sans-serif;
+            background-color: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        #analysisForm {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <h1>Привет, Mini App!</h1>
+
+    <button id="analyzeButton">📄 Анализ кандидата</button>
+
+    <div id="analysisForm" class="hidden">
+        <h3>Загрузите резюме (PDF)</h3>
+        <input type="file" id="pdfInput" accept="application/pdf" />
+        <br><br>
+        <button id="sendButton">Отправить на анализ</button>
+    </div>
+
     <button id="mainButton">Закрыть</button>
+
     <script>
-        // Инициализация
         const tg = window.Telegram.WebApp;
         tg.ready();
-        
-        // Пример использования API
+
+        const analyzeButton = document.getElementById('analyzeButton');
+        const form = document.getElementById('analysisForm');
+
+        analyzeButton.addEventListener('click', () => {
+            form.classList.toggle('hidden');
+        });
+        document.getElementById('sendButton').addEventListener('click', async () => {
+            const fileInput = document.getElementById('pdfInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Выберите файл!');
+                return;
+            }
+            if (file.type !== 'application/pdf') {
+                alert('Можно загружать только PDF!');
+                return;
+            }
+            const maxSize = 1024 * 1024 * 1024; // 1 ГБ
+            if (file.size > maxSize) {
+                alert('Файл слишком большой! Максимум — 1 ГБ.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('pdf', file);
+
+            try {
+                await fetch('http://localhost:8000/transcribe', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                alert('Файл отправлен на анализ!');
+            } catch (err) {
+                alert('Ошибка отправки файла');
+            }
+        });
+
         document.getElementById('mainButton').addEventListener('click', () => {
             tg.close();
         });
