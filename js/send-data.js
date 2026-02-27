@@ -8,6 +8,9 @@ document.getElementById("sendButton").addEventListener("click", async () => {
     alert("Загрузите резюме!");
     return;
   }
+  console.log(resume);
+  console.log(gfd);
+
   if (resume.type !== "application/pdf") {
     alert("Резюме должно быть PDF!");
     return;
