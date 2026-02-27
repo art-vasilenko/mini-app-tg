@@ -1,0 +1,18 @@
+body {
+  font-family: sans-serif;
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+  text-align: center;
+  padding: 20px;
+}
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 10px;
+}
+.hidden {
+  display: none;
+}
+#analysisForm {
+  margin-top: 20px;
+}
