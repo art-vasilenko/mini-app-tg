@@ -31,6 +31,25 @@ async function headCheck(downloadUrl) {
       return { ok: false };
     }
 
+    const videoResponse = await axios.get(headResp.data.file, {
+      responseType: "blob",
+    });
+
+    const formData = new FormData();
+    formData.append("file", videoResponse.data, "video.webm");
+
+    const postResp = await axios.post(
+      "http://localhost:8000/transcribe",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
+
+    console.log("Ответ сервера:", postResp.data);
+
     return { ok: true, length: len, type, file: headResp.data.file };
   } catch (err) {
     alert("Ошибка HEAD-проверки");
