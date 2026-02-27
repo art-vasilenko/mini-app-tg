@@ -1,4 +1,5 @@
 const tg = window.Telegram.WebApp;
+console.log(tg.initDataUnsafe);
 
 if (!tg) {
   alert("Mini App не в Telegram");
