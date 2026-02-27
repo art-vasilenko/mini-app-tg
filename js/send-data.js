@@ -44,6 +44,7 @@ document.getElementById("sendButton").addEventListener("click", async () => {
 
   try {
     const downloadUrl = await getYandexDownloadUrlVideo(link);
+    console.log(downloadUrl);
     if (!downloadUrl) return;
 
     const head = await headCheck(downloadUrl);

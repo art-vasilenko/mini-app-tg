@@ -28,6 +28,7 @@ async function headCheck(downloadUrl) {
     const maxSize = maxSizeGb * 1024 * 1024 * 1024;
 
     const headResp = await axios.head(downloadUrl);
+    console.log(headResp);
     const len = parseInt(headResp.headers["content-length"] || "0", 10);
     const type = (headResp.headers["content-type"] || "").split(";")[0];
 
