@@ -53,7 +53,20 @@ document.getElementById("sendButton").addEventListener("click", async () => {
     if (!head.ok) return;
     console.log(head.file);
 
-    alert("Видео готово к загрузке! Всё в порядке.");
+    const formData = new FormData();
+    formData.append("resume", resume);
+    formData.append("gfd", gfd);
+    if (video) formData.append("video", video);
+    formData.append("link", link);
+
+    const response = await fetch("https://artem.maxis-it.ru/api/v1/analyze", {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json();
+    console.log(result);
+    alert("Файлы отправлены!");
   } catch (err) {
     alert("Ошибка обработки ссылки");
   }
