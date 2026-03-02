@@ -20,7 +20,9 @@ console.log(tg.initData);
       },
     );
 
-    if (!response.ok) {
+    const data = await response.json();
+
+    if (!data.ok) {
       tg.close();
     }
   } catch (e) {
