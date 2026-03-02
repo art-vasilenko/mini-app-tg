@@ -31,8 +31,6 @@ async function headCheck(downloadUrl) {
       return { ok: false };
     }
 
-    console.log("Ответ сервера:", postResp.data);
-
     return { ok: true, length: len, type, file: headResp.data.file };
   } catch (err) {
     console.log(err);
