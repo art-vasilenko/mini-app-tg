@@ -1,6 +1,7 @@
 document.getElementById("sendButton").addEventListener("click", async () => {
   const resume = document.getElementById("resumeInput").files[0];
   const gfd = document.getElementById("gfdInput").files[0];
+  const video = document.getElementById("videoInput").files[0];
   const link = document.getElementById("yandexLink").value.trim();
 
   // ===== ВАЛИДАЦИЯ РЕЗЮМЕ =====
@@ -8,8 +9,10 @@ document.getElementById("sendButton").addEventListener("click", async () => {
     alert("Загрузите резюме!");
     return;
   }
+
   console.log(resume);
   console.log(gfd);
+  console.log(video);
 
   if (resume.type !== "application/pdf") {
     alert("Резюме должно быть PDF!");
