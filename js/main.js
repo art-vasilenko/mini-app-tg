@@ -5,17 +5,15 @@ if (!tg) {
   alert("Mini App не в Telegram");
 } else {
   tg.ready();
+  const response = await fetch("https://artem.maxis-it.ru/api/v1/check-user", {
+    method: "POST",
+    body: tg.initData,
+  });
+
+  if (!response.ok) {
+    tg.close();
+  }
 }
-
-const user = tg.initDataUnsafe.user;
-
-if (user) {
-  console.log("User ID:", user.id);
-  console.log("Username:", user.username);
-  console.log("First name:", user.first_name);
-}
-
-alert(JSON.stringify(user));
 
 const analyzeButton = document.getElementById("analyzeButton");
 const form = document.getElementById("analysisForm");
