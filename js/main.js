@@ -15,7 +15,7 @@ console.log(tg.initData);
       {
         method: "POST",
         headers: {
-          Authorization: `tma ${tg.initData}`,
+          Authorization: tg.initData,
         },
       },
     );
