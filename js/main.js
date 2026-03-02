@@ -5,7 +5,6 @@ if (!tg) {
   alert("Mini App не в Telegram");
 } else {
   tg.ready();
-  alert(tg.initDataUnsafe);
 }
 
 const user = tg.initDataUnsafe.user;
