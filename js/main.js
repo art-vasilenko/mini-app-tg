@@ -1,19 +1,30 @@
 const tg = window.Telegram.WebApp;
 console.log(tg.initData);
 
-if (!tg) {
-  alert("Mini App не в Telegram");
-} else {
-  tg.ready();
-  const response = await fetch("https://artem.maxis-it.ru/api/v1/check-user", {
-    method: "POST",
-    body: tg.initData,
-  });
-
-  if (!response.ok) {
-    tg.close();
+(async () => {
+  if (!tg) {
+    alert("Mini App не в Telegram");
+    return;
   }
-}
+
+  tg.ready();
+
+  try {
+    const response = await fetch(
+      "https://artem.maxis-it.ru/api/v1/check-user",
+      {
+        method: "POST",
+        body: tg.initData,
+      },
+    );
+
+    if (!response.ok) {
+      tg.close();
+    }
+  } catch (e) {
+    console.error(e);
+  }
+})();
 
 const analyzeButton = document.getElementById("analyzeButton");
 const form = document.getElementById("analysisForm");
