@@ -57,7 +57,7 @@ document.getElementById("sendButton").addEventListener("click", async () => {
     formData.append("resume", resume);
     formData.append("gfd", gfd);
     if (video) formData.append("video", video);
-    formData.append("link", link);
+    formData.append("link", head.file);
 
     const response = await fetch("https://artem.maxis-it.ru/api/v1/analyze", {
       method: "POST",

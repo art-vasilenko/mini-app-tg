@@ -9,7 +9,7 @@ function isValidYandexUrl(url) {
 // ===== HEAD-ПРОВЕРКА =====
 async function headCheck(downloadUrl) {
   try {
-    const maxSizeGb = 2; // максимум
+    const maxSizeGb = 2;
     const maxSize = maxSizeGb * 1024 * 1024 * 1024;
 
     const headResp = await axios.get(
