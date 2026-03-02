@@ -14,6 +14,9 @@ console.log(tg.initData);
       "https://artem.maxis-it.ru/api/v1/check-user",
       {
         method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
         body: tg.initData,
       },
     );
