@@ -35,7 +35,7 @@ async function headCheck(downloadUrl) {
 
     return { ok: true, length: len, type, file: headResp.data.file };
   } catch (err) {
-    alert("Ошибка HEAD-проверки");
+    console.log(err);
     return { ok: false };
   }
 }
